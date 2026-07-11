@@ -3,11 +3,16 @@ name = "patina-agent"
 version = "0.1.0"
 edition = "2024"
 
+[[example]]
+name = "chat_stream"
+path = "examples/chat_stream.rs"
+
 [dependencies]
 anyhow = "*"
 async-openai = { version = "*", features = ["chat-completion"] }
 async-stream = "0.3.6"
 dotenvy = "*"
+futures = "0.3.32"
 schemars = "1.2.1"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
