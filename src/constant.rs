@@ -1,0 +1,1 @@
+pub const DEEPSEEK_V4_FLASH_MODEL: &'static str = "deepseek-v4-flash";

@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 anyhow = "*"
-async-openai = "*"
+async-openai = { version = "*", features = ["chat-completion"] }
 dotenvy = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
