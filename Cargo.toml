@@ -4,16 +4,17 @@ version = "0.1.0"
 edition = "2024"
 
 [[example]]
-name = "chat_stream"
-path = "examples/chat_stream.rs"
+name = "stream_chat"
+path = "examples/stream_chat.rs"
 
 [dependencies]
 anyhow = "*"
 async-openai = { version = "*", features = ["chat-completion"] }
-async-stream = "0.3.6"
+async-stream = "*"
+backon = "*"
 dotenvy = "*"
-futures = "0.3.32"
-schemars = "1.2.1"
+futures = "*"
+schemars = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
 tokio = { version = "*", features = ["full"] }
