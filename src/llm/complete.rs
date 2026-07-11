@@ -1,10 +1,11 @@
-use async_openai::types::chat::ChatCompletionRequestUserMessageArgs;
-use async_openai::types::chat::ChatCompletionRequestSystemMessageArgs;
-use async_openai::types::chat::CreateChatCompletionRequestArgs;
+use async_openai::types::chat::{
+    ChatCompletionRequestSystemMessageArgs, ChatCompletionRequestUserMessageArgs,
+    CreateChatCompletionRequestArgs,
+};
 pub async fn chat_complete(
     model: &str,
     system: Option<&str>,
-    prompt: &str
+    prompt: &str,
 ) -> anyhow::Result<String> {
     let client = async_openai::Client::new();
     let mut messages = vec![];
@@ -14,7 +15,7 @@ pub async fn chat_complete(
             ChatCompletionRequestSystemMessageArgs::default()
                 .content(system)
                 .build()?
-                .into()
+                .into(),
         )
     }
 
@@ -22,7 +23,7 @@ pub async fn chat_complete(
         ChatCompletionRequestUserMessageArgs::default()
             .content(prompt)
             .build()?
-            .into()
+            .into(),
     );
 
     let request = CreateChatCompletionRequestArgs::default()
@@ -41,6 +42,6 @@ pub async fn chat_complete(
         .next()
         .and_then(|c| c.message.content)
         .ok_or_else(|| anyhow::anyhow!("No message content"))?;
-    
+
     Ok(content)
 }
