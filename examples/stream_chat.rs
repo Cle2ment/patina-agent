@@ -1,16 +1,9 @@
-use async_openai::types::chat::Prompt;
-use futures::StreamExt;
 use patina_agent::{
     constant::DEEPSEEK_V4_FLASH_MODEL,
-    llm::{
-        complete::chat_complete,
-        stream::{chat_stream, chat_stream_with_retry},
-        structured::chat_complete_structured,
-    },
+    llm::{semaphore::get_semaphore, stream::chat_stream_with_retry},
 };
-use std::result::{self, Result::Ok};
 use tokio::task::JoinSet;
-use tracing::{Instrument, Level, span};
+use tracing::{Instrument, Level};
 use tracing_subscriber::FmtSubscriber;
 
 #[tokio::main]
