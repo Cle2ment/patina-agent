@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug, JsonSchema)]
 pub struct ActionPlan {
     pub goal: String,
-    pub Steps: Vec<ActionStep>,
+    pub steps: Vec<ActionStep>,
     pub difficulty: Difficulty,
     pub estimated_minutes: u32,
 }
