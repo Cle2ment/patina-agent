@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 anyhow = "*"
 async-openai = { version = "*", features = ["chat-completion"] }
+async-stream = "0.3.6"
 dotenvy = "*"
 schemars = "1.2.1"
 serde = { version = "*", features = ["derive"] }
