@@ -8,7 +8,7 @@ pub async fn chat_complete_structured(
     model: &str,
     system: Option<&str>,
     prompt: &str,
-) -> anyhow::Result<String> {
+) -> anyhow::Result<ActionPlan> {
     let client = async_openai::Client::new();
     let mut messages = vec![];
 
@@ -44,6 +44,7 @@ pub async fn chat_complete_structured(
     let request = CreateChatCompletionRequestArgs::default()
         .model(model)
         .messages(messages)
+        .response_format(format_setting)
         .max_tokens(2048u32)
         .build()?;
 
@@ -51,12 +52,13 @@ pub async fn chat_complete_structured(
 
     tracing::info!("Response: {:#?}", response);
 
-    let content = response
+    let plan: ActionPlan = response
         .choices
         .into_iter()
         .next()
         .and_then(|c| c.message.content)
-        .ok_or_else(|| anyhow::anyhow!("No message content"))?;
+        .ok_or_else(|| anyhow::anyhow!("No message content"))
+        .and_then(|s| serde_json::from_str(&s).map_err(Into::into))?;
 
-    Ok(content)
+    Ok(plan)
 }
