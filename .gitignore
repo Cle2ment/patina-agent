@@ -1,19 +1,23 @@
-# --- Rust ---
+# Rust
 /target
 
-# --- Environment ---
+# Environment
 .env
 .env.*
 !.env.example
 
-# --- IDE ---
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
 
-# --- OS ---
+# OS
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Agent
+/.omo
+/.codegraph
