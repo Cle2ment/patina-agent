@@ -1,9 +1,16 @@
-use std::result::Result::Ok;
+use async_openai::types::chat::Prompt;
 use futures::StreamExt;
 use patina_agent::{
-    constant::DEEPSEEK_V4_FLASH_MODEL, llm::{complete::chat_complete, stream::chat_stream, structured::chat_complete_structured},
+    constant::DEEPSEEK_V4_FLASH_MODEL,
+    llm::{
+        complete::chat_complete,
+        stream::{chat_stream, chat_stream_with_retry},
+        structured::chat_complete_structured,
+    },
 };
-use tracing::Level;
+use std::result::{self, Result::Ok};
+use tokio::task::JoinSet;
+use tracing::{Instrument, Level, span};
 use tracing_subscriber::FmtSubscriber;
 
 #[tokio::main]
@@ -18,28 +25,42 @@ async fn main() -> anyhow::Result<()> {
         .finish();
     tracing::subscriber::set_global_default(subscriber)?;
 
-    let s = chat_stream(
-        DEEPSEEK_V4_FLASH_MODEL,
-        Some("你是一个全能Agent。"),
-        "我想去观看今年的美加墨世界杯，应该如何安排？",
-    );
+    let prompts = vec![
+        "用三句话解释Rust的所有权系统。",
+        "什么是异步编程？",
+        "解释一下机器学习中的过拟合问题。",
+        "如何在Rust中实现一个简单的Web服务器？",
+        "什么是区块链技术，它是如何工作的？",
+        "解释一下量子计算的基本原理。",
+        "什么是人工智能，它与机器学习有什么区别？",
+    ];
 
-    futures::pin_mut!(s);
-    let mut output = String::new();
-    while let Some(result) = s.next().await {
-        match result {
-            Ok(txt) => {
-                output.push_str(&txt);
-                print!("{txt}");
+    let mut set = JoinSet::new();
+    for prompt in prompts {
+        let span = tracing::info_span!("Chat", prompt = prompt);
+        set.spawn(
+            async move {
+                let permit = get_semaphore().acquire().await?;
+                let output = chat_stream_with_retry(
+                    DEEPSEEK_V4_FLASH_MODEL,
+                    Some("你是一个全能Agent。"),
+                    prompt,
+                )
+                .await?;
+                drop(permit);
+                Ok::<_, anyhow::Error>((prompt, output))
             }
-            Err(err) => {
-                tracing::error!("\nError while streaming: {}", err);
-                return Err(err);
-            }
-        }
+            .instrument(span),
+        );
     }
 
-    println!("Result: {output}");
+    while let Some(result) = set.join_next().await {
+        match result {
+            Ok(Ok((prompt, result))) => tracing::info!("\n{prompt}\n{result}"),
+            Ok(Err(err)) => tracing::error!("Task panicked: {err}"),
+            Err(err) => tracing::error!("Task join error: {err}"),
+        }
+    }
 
     Ok(())
 }
