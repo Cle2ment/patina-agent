@@ -1,0 +1,14 @@
+[package]
+name = "patina-agent"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "*"
+async-openai = "*"
+dotenvy = "*"
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
+tokio = { version = "*", features = ["full"] }
+tracing = "*"
+tracing-subscriber = "*"
