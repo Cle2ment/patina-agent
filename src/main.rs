@@ -1,7 +1,7 @@
 use anyhow::Ok;
 use patina_agent::{
     constant::DEEPSEEK_V4_FLASH_MODEL,
-    llm::{complete::chat_complete, structured::chat_complete_structured},
+    llm::{complete::chat_complete, structured::chat_complete_structured, structured_ds::chat_complete_structured_ds},
 };
 use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
@@ -18,9 +18,8 @@ async fn main() -> anyhow::Result<()> {
         .finish();
     tracing::subscriber::set_global_default(subscriber)?;
 
-    let plan = chat_complete_structured(
+    let plan = chat_complete_structured_ds(
         DEEPSEEK_V4_FLASH_MODEL,
-        Some("你是一个全能Agent。"),
         "我想去观看今年的美加墨世界杯，应该如何安排？",
     )
     .await?;
