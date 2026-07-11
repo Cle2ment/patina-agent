@@ -1,5 +1,3 @@
-use std::result;
-
 use crate::models::ActionPlan;
 use async_openai::types::chat::{
     ChatCompletionRequestSystemMessageArgs, ChatCompletionRequestUserMessageArgs,

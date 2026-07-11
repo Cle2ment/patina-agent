@@ -1,7 +1,7 @@
 use anyhow::Ok;
 use patina_agent::{
     constant::DEEPSEEK_V4_FLASH_MODEL,
-    llm::{complete::chat_complete, structured::chat_complete_structured, structured_ds::chat_complete_structured_ds},
+    llm::{structured_ds::chat_complete_structured_ds},
 };
 use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
