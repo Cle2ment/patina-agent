@@ -1,4 +1,4 @@
-# patina-agent
+# Patina Agent
 
 Rust 异步 AI Agent 框架，基于 `async-openai`，提供 LLM 交互原语。
 
@@ -62,3 +62,6 @@ src/
 | `tokio` | 异步运行时 |
 | `tracing` | 结构化日志 |
 | `dotenvy` | 加载 `.env` 环境变量 |
+
+## 版权
+Copyright (C) 2026  Clement CHEN.
