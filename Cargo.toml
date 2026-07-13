@@ -6,7 +6,7 @@ description = "Rust async AI Agent framework with structured output, streaming, 
 license = "AGPL-3.0"
 repository = "https://github.com/Cle2ment/patina-agent"
 homepage = "https://github.com/Cle2ment/patina-agent"
-keywords = ["ai", "agent", "llm", "openai", "deepseek", "async"]
+keywords = ["ai", "agent", "llm", "openai", "async"]
 categories = ["development-tools", "api-bindings"]
 
 [[example]]
