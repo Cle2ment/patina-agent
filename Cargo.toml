@@ -2,6 +2,12 @@
 name = "patina-agent"
 version = "0.1.0"
 edition = "2024"
+description = "Rust async AI Agent framework with structured output, streaming, retry and concurrency control"
+license = "AGPL-3.0"
+repository = "https://github.com/Cle2ment/patina-agent"
+homepage = "https://github.com/Cle2ment/patina-agent"
+keywords = ["ai", "agent", "llm", "openai", "deepseek", "async"]
+categories = ["development-tools", "api-bindings"]
 
 [[example]]
 name = "stream_chat"
