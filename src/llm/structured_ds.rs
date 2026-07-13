@@ -17,7 +17,7 @@ pub async fn chat_complete_structured_ds(model: &str, prompt: &str) -> anyhow::R
             .build()?
             .into(),
     ];
-    
+
     let format_setting = ResponseFormat::JsonObject;
 
     let request = CreateChatCompletionRequestArgs::default()
