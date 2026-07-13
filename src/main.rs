@@ -1,3 +1,5 @@
+#![allow(linker_messages)]
+
 use anyhow::Ok;
 use patina_agent::{
     constant::DEEPSEEK_V4_FLASH_MODEL, llm::structured_ds::chat_complete_structured_ds,
