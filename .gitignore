@@ -21,3 +21,6 @@ desktop.ini
 # Agent
 /.omo
 /.codegraph
+
+# Runtime data
+data/
