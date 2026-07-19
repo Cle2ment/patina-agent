@@ -22,3 +22,4 @@ pub enum Difficulty {
     Medium,
     Hard,
 }
+ 
