@@ -1,5 +1,5 @@
-use anyhow::Ok;
 use crate::gaia::models::{GaiaRow, HfResponse};
+use anyhow::Ok;
 
 pub async fn load_gaia_level1() -> anyhow::Result<Vec<GaiaRow>> {
     let token = std::env::var("HF_TOKEN")?;
@@ -11,7 +11,7 @@ pub async fn load_gaia_level1() -> anyhow::Result<Vec<GaiaRow>> {
             ("config", "2023_level1"),
             ("split", "validation"),
             ("offset", "0"),
-            ("length", "100")
+            ("length", "100"),
         ])
         .bearer_auth(token)
         .send()

@@ -3,12 +3,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Debug)]
 pub struct HfResponse {
-    pub rows: Vec<HfRow>
+    pub rows: Vec<HfRow>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct HfRow {
-    pub row: GaiaRow
+    pub row: GaiaRow,
 }
 
 #[derive(Deserialize, Debug)]
