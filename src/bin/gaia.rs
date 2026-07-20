@@ -20,7 +20,7 @@ async fn main() -> anyhow::Result<()> {
     gaia_level1_experiment().await
 }
 
-const MODELS: &[&str] = &["deepseek/deepseek-v4-flash", "deepseek/deepseek-v4-pro"];
+const MODELS: &[&str] = &["deepseek-v4-flash", "deepseek-v4-pro"];
 
 pub async fn gaia_level1_experiment() -> anyhow::Result<()> {
     let problems = load_gaia_level1().await?;
