@@ -11,7 +11,7 @@ pub struct HfRow {
     pub row: GaiaRow,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct GaiaRow {
     pub task_id: String,
 
